@@ -1,3 +1,89 @@
+"""
+SMAAcomp – Baseline Calibration Workflow for Low-Cost Air Quality Sensors
+Version: 1.0
+Date: November 2025
+
+Description:
+------------
+This script implements the baseline compensation and two-point calibration 
+of low-cost air quality sensors using reference station data (UNAM, CCA, and IBERO).
+It corrects temperature and humidity biases, performs linear calibration of 
+O₃ and CO sensors, and evaluates performance using correlation, RMSE, and R² metrics.
+
+This workflow represents the foundation for future integration of 
+machine learning models (e.g., Random Forest, SVR, Gradient Boosting) 
+to improve calibration transferability across sites.
+
+Inputs:
+-------
+- 2023-03-unam_hora_L1.csv   → Reference meteorological data (UNAM)
+- cca_o3_co_2023-04-11.csv   → Reference pollutant concentrations (CCA)
+- ibero2_0703_0403.csv       → Low-cost sensor data (IBERO)
+
+Outputs:
+--------
+- correlation_before_compensation.png
+- correlation_after_compensation.png
+- Calibration metrics printed to console (R², RMSE, p-value)
+
+Authors:
+--------
+- Horacio Serafín Jiménez Soto (Smability)
+- Octavio Serafín Jiménez Soto (Smability)
+- D. A. Pérez-De La Mora (Instituto de Investigación Aplicada y Tecnología, INIAT – Universidad Iberoamericana, Ciudad de México)
+
+License:
+--------
+This project is released under the MIT License.
+You are free to use, modify, and redistribute this code, provided that 
+proper credit is given to the authors and source repository.
+
+Repository:
+-----------
+https://github.com/SmabilityAI/SMAAcomp
+"""
+
+# =============================================================================
+# Metadata
+# =============================================================================
+
+__title__ = "SMAAcomp – Baseline Calibration Workflow for Low-Cost Air Quality Sensors"
+__version__ = "1.0"
+__date__ = "2025-11-11"
+__authors__ = [
+    "Horacio Serafín Jiménez Soto (Smability)",
+    "Octavio Serafín Jiménez Soto (Smability)",
+    "D. A. Pérez-De La Mora (Instituto de Investigación Aplicada y Tecnología, INIAT – Universidad Iberoamericana, Ciudad de México)"
+]
+__contact__ = {
+    "Smability": "contacto@smability.com",
+    "INIAT": "daniel.perez@ibero.mx"
+}
+__license__ = "MIT"
+__doi__ = "Pending release"
+__keywords__ = [
+    "air quality",
+    "low-cost sensors",
+    "calibration",
+    "machine learning",
+    "ozone",
+    "carbon monoxide",
+    "environmental monitoring",
+    "open science",
+    "Mexico City"
+]
+__repository__ = "https://github.com/SmabilityAI/SMAAcomp"
+__description__ = (
+    "Baseline workflow for compensating temperature and humidity effects and performing "
+    "two-point calibration of low-cost air quality sensors using reference data from UNAM, "
+    "CCA, and IBERO. Provides correlation and error metrics, serving as a foundation for "
+    "future machine learning-based calibration models."
+)
+
+# =============================================================================
+# Libraries
+# =============================================================================
+
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -16,7 +102,7 @@ def load_and_preprocess_data(cca_file, ruoa_file, ibero_file):
     
     # RUOA Station data
     df_ruoa = pd.read_csv(ruoa_file)
-    df_ruoa['TIMESTAMP'] = pd.to_datetime(df_ruoa['TIMESTAMP'], dayfirst=True)
+    df_ruoa['TIMESTAMP'] = pd.to_datetime(df_ruoa['TIMESTAMP'], format='mixed')
     df_ruoa_ = df_ruoa.set_index('TIMESTAMP').resample('60T').mean()
     df_ruoa_['RH_Avg'] = df_ruoa_['RH_Avg'].interpolate()
     df_ruoa_['Temp_Avg'] = df_ruoa_['Temp_Avg'].interpolate()
@@ -502,7 +588,27 @@ def main():
         'correlation_after_compensation.png'
     )
     
-    
+# =============================================================================
+# Execution Entry Point
+# =============================================================================
 
 if __name__ == "__main__":
+    print("=" * 80)
+    print(f"{__title__}")
+    print("=" * 80)
+    print(f"Version: {__version__} | Date: {__date__}")
+    print(f"Authors: {', '.join(__authors__)}")
+    print(f"License: {__license__}")
+    print(f"Repository: {__repository__}")
+    print("-" * 80)
+    print("Initializing baseline calibration workflow...\n")
+    
+    # Run main script
     main()
+
+    print("\nProcess completed successfully.")
+    print("Generated outputs:")
+    print(" - correlation_before_compensation.png")
+    print(" - correlation_after_compensation.png")
+    print("\nReady for next phase: ML model integration (RF, SVR, GB).")
+    print("=" * 80)
