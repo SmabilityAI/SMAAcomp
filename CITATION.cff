@@ -1,0 +1,38 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+title: "SMAAcomp – Baseline Calibration Workflow for Low-Cost Air Quality Sensors"
+version: v1.0.0
+date-released: 2025-11-11
+doi: 10.5281/zenodo.pending
+repository-code: "https://github.com/SmabilityAI/SMAAcomp"
+license: MIT
+type: software
+
+authors:
+  - family-names: Serafín Jiménez Soto
+    given-names: Horacio
+    affiliation: Smability
+  - family-names: Serafín Jiménez Soto
+    given-names: Octavio
+    affiliation: Smability
+  - family-names: Pérez-De La Mora
+    given-names: Daniel Alejandro
+    affiliation: Instituto de Investigación Aplicada y Tecnología (INIAT), Universidad Iberoamericana, Ciudad de México
+    orcid: https://orcid.org/0000-0001-8626-3992
+
+abstract: >
+  Baseline Python workflow for temperature/humidity compensation and two-point calibration
+  of low-cost air quality sensors (O₃, CO) using reference data from Mexico City networks
+  (UNAM, CCA, and IBERO). Includes reproducible preprocessing, correlation analysis,
+  and calibration routines, forming a foundation for future machine learning model
+  integration (e.g., Random Forest, SVR, Gradient Boosting).
+
+keywords:
+  - air quality
+  - low-cost sensors
+  - calibration
+  - machine learning
+  - ozone
+  - carbon monoxide
+  - open science
+  - Mexico City
