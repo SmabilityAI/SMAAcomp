@@ -1,0 +1,10 @@
+# SMAAcomp - Baseline Calibration Workflow for Low-Cost Air Quality Sensors
+# Reproducible environment file (Python 3.12, macOS-compatible)
+
+pandas==2.2.2
+numpy==1.26.4
+matplotlib==3.9.2
+scipy==1.13.1
+statistics  # built-in, included for compatibility
+jupyterlab>=4.2.0
+notebook>=7.1.0
